@@ -1,0 +1,173 @@
+{
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "height": 32,
+
+    "modules-left": [
+        "custom/power",
+        "niri/workspaces",
+        "niri/window"
+    ],
+    "modules-center": ["custom/music"],
+    "modules-right": [
+        "network",
+        "cpu",
+        "temperature",
+        "custom/gpu",
+        "memory",
+        "wireplumber",
+        "idle_inhibitor",
+        "clock",
+        "tray"
+    ],
+
+    // ── Power ────────────────────────────────────────────────────────
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "~/.config/waybar/scripts/powermenu.sh"
+    },
+
+    // ── Workspaces ───────────────────────────────────────────────────
+    "niri/workspaces": {
+        "all-outputs": false,
+        "format": "{index}"
+    },
+
+    // ── Window title ─────────────────────────────────────────────────
+    "niri/window": {
+        "format": " {title}",
+        "max-length": 40,
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*)Mozilla Firefox(.*)": " Firefox",
+            "(.*)Chromium(.*)":        " Chromium",
+            "(.*)nvim(.*)":            " Neovim",
+            "(.*)helix(.*)":           " Helix",
+            "(.*)alacritty(.*)":       " Alacritty",
+            "(.*)kitty(.*)":           " Kitty",
+            "(.*)foot(.*)":            " foot",
+            "(.*)Telegram(.*)":        " Telegram",
+            "(.*)Discord(.*)":         "󰙯 Discord",
+            "(.*)Spotify(.*)":         " Spotify",
+            "(.*)mpv(.*)":             " mpv",
+            "(.*)Steam(.*)":           " Steam",
+            "(.*)- GIMP$":             " GIMP",
+            "(.*)Thunar(.*)":          "󰉋 Thunar",
+            "^$":                      " Desktop"
+        }
+    },
+
+    // ── Music ────────────────────────────────────────────────────────
+    "custom/music": {
+        "return-type": "json",
+        "interval": 2,
+        "exec": "bash -c 'P=\"\"; for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*|Chromium.*) S=$(playerctl -p \"$p\" status 2>/dev/null); [ \"$S\" = \"Playing\" ] || [ \"$S\" = \"Paused\" ] && P=\"$p\" && break;; esac; done; [ -z \"$P\" ] && for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*|Chromium.*) P=\"$p\"; break;; esac; done; [ -z \"$P\" ] && echo \"{\\\"text\\\":\\\"\\\",\\\"class\\\":\\\"off\\\"}\" && exit; S=$(playerctl -p \"$P\" status 2>/dev/null); TI=$(playerctl -p \"$P\" metadata title 2>/dev/null | head -c 40); AR=$(playerctl -p \"$P\" metadata artist 2>/dev/null | head -c 25); [ -z \"$TI\" ] && echo \"{\\\"text\\\":\\\"\\\",\\\"class\\\":\\\"off\\\"}\" && exit; case \"$S\" in Playing) IC=\"▶\" CL=\"playing\";; Paused) IC=\"⏸\" CL=\"paused\";; *) echo \"{\\\"text\\\":\\\"\\\",\\\"class\\\":\\\"off\\\"}\" && exit;; esac; [ -n \"$AR\" ] && TX=\"$IC $TI · $AR\" || TX=\"$IC $TI\"; printf \"{\\\"text\\\":\\\"%s\\\",\\\"class\\\":\\\"%s\\\",\\\"tooltip\\\":\\\"%s\\\"}\\n\" \"$TX\" \"$CL\" \"$TI\"'",
+        "on-click":       "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" play-pause; break;; esac; done'",
+        "on-click-right": "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" next; break;; esac; done'",
+        "on-scroll-up":   "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" previous; break;; esac; done'",
+        "on-scroll-down": "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" next; break;; esac; done'"
+    },
+
+    // ── Network ──────────────────────────────────────────────────────
+    "network": {
+        "interval": 3,
+        "format-wifi":         " {signalStrength}%",
+        "format-ethernet":     "󰈀 {ipaddr}",
+        "format-disconnected": "󰤭 off",
+        "tooltip-format-wifi":     "{essid}  {signalStrength}%\n󰇚 {bandwidthDownBytes}   󰕒 {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "{ifname}  {ipaddr}\n󰇚 {bandwidthDownBytes}   󰕒 {bandwidthUpBytes}",
+        "tooltip-format-disconnected": "disconnected"
+    },
+
+    // ── CPU ──────────────────────────────────────────────────────────
+    "cpu": {
+        "format":         "󰻠 {usage}%",
+        "interval":       2,
+        "tooltip-format": "{usage}%  load {load}",
+        "on-click":       "foot -e zsh -c 'btop; exec zsh'"
+    },
+
+    // ── Temperature ──────────────────────────────────────────────────
+    "temperature": {
+        "critical-threshold": 85,
+        "interval":        3,
+        "format":          "󰔏 {temperatureC}°",
+        "format-critical": "󰸁 {temperatureC}°",
+        "tooltip":         false
+    },
+
+    // ── GPU ──────────────────────────────────────────────────────────
+    "custom/gpu": {
+        "exec":        "~/.config/waybar/scripts/nvidia-stats.sh",
+        "return-type": "json",
+        "interval":    3,
+        "format":      "󰾲 {text}",
+        "tooltip":     true,
+        "on-click":    "foot -e zsh -c 'watch -n1 nvidia-smi; exec zsh'"
+    },
+
+    // ── Memory ───────────────────────────────────────────────────────
+    "memory": {
+        "format":         "󰍛 {percentage}%",
+        "interval":       5,
+        "tooltip-format": "{used:0.1f}G / {total:0.1f}G\nswap {swapUsed:0.1f}G / {swapTotal:0.1f}G",
+        "on-click":       "foot -e zsh -c 'btop; exec zsh'"
+    },
+
+    // ── Audio ────────────────────────────────────────────────────────
+    "wireplumber": {
+        "scroll-step":  5,
+        "max-volume":   150,
+        "format":       "{icon} {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "default":   ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click":       "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "pavucontrol",
+        "on-scroll-up":   "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "tooltip-format": "{node_name}"
+    },
+
+    // ── Idle inhibitor ───────────────────────────────────────────────
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated":   "󰒳",
+            "deactivated": "󰒲"
+        },
+        "tooltip-format-activated":   "inhibit: on",
+        "tooltip-format-deactivated": "inhibit: off"
+    },
+
+    // ── Clock ────────────────────────────────────────────────────────
+    "clock": {
+        "interval":     30,
+        "format":       "󰥔 {:%H·%M}",
+        "format-alt":   "󰃭 {:%d·%m·%Y}",
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode":      "month",
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#ffb6c1'><b>{}</b></span>",
+                "days":     "<span color='#c8a8b8'>{}</span>",
+                "weeks":    "<span color='#6b4c5e'><b>W{}</b></span>",
+                "weekdays": "<span color='#dda0dd'><b>{}</b></span>",
+                "today":    "<span color='#98fb98'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    // ── Tray ─────────────────────────────────────────────────────────
+    "tray": {
+        "icon-size": 15,
+        "spacing":   6,
+        "show-passive-items": true
+    }
+}
