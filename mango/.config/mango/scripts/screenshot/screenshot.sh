@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Создаем папку, если её нет
 mkdir -p "$HOME/Pictures/Screenshots"
 
-# Формат имени файла
 filepath="$HOME/Pictures/Screenshots/Screenshot from $(date '+%Y-%m-%d %H-%M-%S').png"
 
-# Функция для копирования в буфер и уведомления
 post_process() {
     if [ -f "$1" ]; then
         wl-copy < "$1"
@@ -28,10 +25,7 @@ case "${1:-fullscreen}" in
     post_process "$filepath"
     ;;
   annotate)
-    # Сначала делаем скриншот всего экрана
     grim "$filepath"
-    # Открываем в satty для редактирования. 
-    # После сохранения в satty файл обновится, и мы его скопируем.
     satty --filename "$filepath" --output-filename "$filepath" --actions-on-enter save-to-file --early-exit
     post_process "$filepath"
     ;;
