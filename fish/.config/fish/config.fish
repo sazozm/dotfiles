@@ -1,10 +1,5 @@
 if status is-interactive
-    # ╔══════════════════════════════════════════════════════════════╗
-    # ║          config.fish — sakura-mint (from .zshrc)            ║
-    # ║  palette: #1a0a1f bg · #ffb6c1 pink · #98fb98 green        ║
-    # ╚══════════════════════════════════════════════════════════════╝
-
-    # ── 1. Environment & Paths ────────────────────────────────────────
+    # Environment & Paths
     set -gx EDITOR nvim
     set -gx VISUAL nvim
     set -gx PAGER less
@@ -15,16 +10,11 @@ if status is-interactive
 
     # Cargo
     if test -f $HOME/.cargo/env
-        # fish не умеет source sh-файлы напрямую — добавляем путь вручную
         fish_add_path $HOME/.cargo/bin
     end
 
-    # ── 2. History ────────────────────────────────────────────────────
-    # Fish хранит историю автоматически (~/.local/share/fish/fish_history)
-    # Дубликаты и команды с пробелом в начале fish исключает нативно.
-    # Дополнительные настройки не нужны.
-
-    # ── 3. Colors (sakura-mint) ───────────────────────────────────────
+    # History
+    # Colors 
     set -gx LS_COLORS "di=38;2;152;251;152:ln=38;2;175;238;238:ex=38;2;255;182;193:pi=38;2;255;250;205:so=38;2;221;160;221:bd=38;2;173;216;230:cd=38;2;173;216;230:*.tar=38;2;221;160;221:*.zip=38;2;221;160;221:*.jpg=38;2;173;216;230:*.png=38;2;173;216;230:*.mp4=38;2;173;216;230:*.mp3=38;2;255;250;205:*.md=38;2;175;238;238:*.json=38;2;175;238;238:*.sh=38;2;152;251;152:*.c=38;2;152;251;152"
 
     # Fish syntax highlighting colors
@@ -48,7 +38,7 @@ if status is-interactive
     set fish_pager_color_completion ffb6c1
     set fish_pager_color_description afeeee
 
-    # ── 4. FZF ────────────────────────────────────────────────────────
+    # FZF
     set -gx FZF_DEFAULT_OPTS "
   --color=bg+:#261332,bg:#1a0a1f,spinner:#dda0dd,hl:#98fb98
   --color=fg:#ffb6c1,header:#afeeee,info:#dda0dd,pointer:#ffb6c1
@@ -60,11 +50,11 @@ if status is-interactive
     set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
     set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
 
-    # ── 5. Starship & Zoxide ──────────────────────────────────────────
+    # Starship & Zoxide
     starship init fish | source
     zoxide init fish | source
 
-    # ── 6. Aliases ────────────────────────────────────────────────────
+    # Aliases
     # System
     alias ls 'eza --group-directories-first --color=always'
     alias ll 'eza -lah --git --group-directories-first --color=always'
@@ -110,9 +100,7 @@ if status is-interactive
     alias waybar-conf '$EDITOR ~/.config/waybar/config.jsonc'
     alias mango-conf '$EDITOR ~/.config/mango/config.conf'
 
-    # ── 7. Functions ──────────────────────────────────────────────────
-    # Вынесены в отдельные файлы ниже (fish требует по одной функции на файл),
-    # но для удобства можно определить их здесь тоже:
+    # Functions
 
     function niri
         if not test -d /run/user/(id -u)
@@ -143,39 +131,35 @@ if status is-interactive
 
     function buildc
         if test (count $argv) -eq 0
-            echo "❌ Ошибка: Укажите файл для компиляции."
-            echo "👉 Использование: buildc main.c"
+            echo "Error, file name is not found"
             return 1
         end
         set out_file (string replace -r '\.[^.]+$' '' $argv[1])
-        echo "⚙️ Компиляция $argv[1] через Clang..."
         clang -std=c11 \
             -Wall -Wextra -Wpedantic \
             -g \
             -fsanitize=address -fsanitize=undefined \
             $argv[1] -o $out_file
         if test $status -eq 0
-            echo "✅ Успешно! Запустите: ./$out_file"
+            echo "all is ok, insert ./$out_file"
         end
     end
 
     function runc
         if test (count $argv) -eq 0
-            echo "❌ Ошибка: Укажите файл."
+            echo "Error, file name is not found"
             return 1
         end
         set out_file (string replace -r '\.[^.]+$' '' $argv[1])
-        buildc $argv[1] && echo "🚀 Запуск ./$out_file..." && ./$out_file
+        buildc $argv[1] && ./$out_file
     end
 
     function buildcpp
         if test (count $argv) -eq 0
-            echo "❌ Ошибка: Укажите файл для компиляции."
-            echo "👉 Использование: buildcpp main.cpp"
+            echo "Error, file name is not found"
             return 1
         end
         set out_file (string replace -r '\.[^.]+$' '' $argv[1])
-        echo "⚙️ Компиляция $argv[1] через Clang++..."
         clang++ -std=c++23 \
             -Wall -Wextra -Wpedantic \
             -Wshadow -Wconversion -Wnull-dereference \
@@ -183,17 +167,17 @@ if status is-interactive
             -fsanitize=address -fsanitize=undefined \
             $argv[1] -o $out_file
         if test $status -eq 0
-            echo "✅ Успешно! Запустите: ./$out_file"
+            echo "All is ok"
         end
     end
 
     function runcpp
         if test (count $argv) -eq 0
-            echo "❌ Ошибка: Укажите файл."
+            echo "Error, file name is not found"
             return 1
         end
         set out_file (string replace -r '\.[^.]+$' '' $argv[1])
-        buildcpp $argv[1] && echo "🚀 Запуск ./$out_file..." && ./$out_file
+        buildcpp $argv[1] && ./$out_file
     end
 
     function fcd

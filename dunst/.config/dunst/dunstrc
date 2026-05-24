@@ -1,66 +1,59 @@
-# ╔══════════════════════════════════════════════════════════════╗
-# ║                  dunstrc — sakura-mint                       ║
-# ╚══════════════════════════════════════════════════════════════╝
-
 [global]
-    # --- Позиционирование ---
+    # --- Pos ---
     monitor = 0
     follow = mouse
-    # Появляются в правом верхнем углу. Отступ: 10px справа, 44px сверху (чтобы не закрывать waybar)
     origin = top-right
     offset = 10x44
     
-    # --- Размеры ---
+    # --- Size ---
     width = 300
     height = 100
     notification_height = 0
     shrink = no
 
-    # --- Внешний вид (Табличная эстетика) ---
+    # --- Theme ---
     transparency = 5
     padding = 12
     horizontal_padding = 14
     frame_width = 1
     corner_radius = 4
     
-    # --- Шрифты и текст ---
+    # --- Font ---
     font = monospace 10
     markup = full
-    # Формат: Жирный заголовок, ниже обычный текст
     format = "<b>%s</b>\n%b"
     alignment = left
     vertical_alignment = center
     word_wrap = yes
     ignore_newline = no
     
-    # --- Поведение ---
     show_age_threshold = 60
     stack_duplicates = true
     hide_duplicate_count = false
     show_indicators = yes
     
-    # --- Иконки ---
+    # --- Icons ---
     icon_position = left
     max_icon_size = 48
     enable_recursive_icon_lookup = true
 
-    # --- Цвета рамок (по умолчанию сливовый) ---
+    # --- Border ---
     frame_color = "#dda0dd"
     separator_color = frame
     separator_height = 1
 
 [urgency_low]
     background = "#1a0a1f"
-    foreground = "#add8e6"  # Голубой текст для неважных
+    foreground = "#add8e6" 
     timeout = 3
 
 [urgency_normal]
     background = "#1a0a1f"
-    foreground = "#ffb6c1"  # Розовый текст для обычных
+    foreground = "#ffb6c1" 
     timeout = 5
 
 [urgency_critical]
     background = "#1a0a1f"
-    foreground = "#98fb98"  # Мятно-зеленый текст для важных
-    frame_color = "#98fb98" # И зеленая рамка для привлечения внимания
-    timeout = 0             # Не исчезнет, пока не кликнешь по нему
+    foreground = "#98fb98" 
+    frame_color = "#98fb98"
+    timeout = 0           

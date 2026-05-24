@@ -1,6 +1,4 @@
-/* ═══════════════════════════════════════════════════════════════════
-   Waybar  ·  Sakura Mint  ·  MangoWM
-   Palette:
+/* 
      bg_deep  #1a0a1f   bg0    #241530   bg1    #35203f
      bg2      #4a3055   fg0    #ffb6c1   fg4    #c8a8b8
      muted    #6b4c5e
@@ -10,7 +8,7 @@
      sky      #add8e6   bright_sky   #c5e8f5
      lemon    #fffacd   peach        #ffcba4
      plum     #dda0dd   pale_tq      #afeeee
-   ═══════════════════════════════════════════════════════════════════ */
+*/
 
 * {
     font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
@@ -26,12 +24,12 @@ window#waybar {
     color: #ffb6c1;
 }
 
-/* ── Sections ──────────────────────────────────────────────────────── */
+/* == Sections ======================================================== */
 .modules-left   { margin: 5px 0 4px 5px; }
 .modules-center { margin: 5px 0 4px 0;   }
 .modules-right  { margin: 5px 5px 4px 0; }
 
-/* ── All ──────────────────────────────────────────────────────────── */
+/* == All ============================================================ */
 #custom-power,
 #workspaces,
 #window,
@@ -52,7 +50,7 @@ window#waybar {
     margin-left: 4px;
 }
 
-/* ── Power ───────────────────────────────────────────────────────── */
+/* == Power ========================================================= */
 #custom-power {
     color: #4a3055;
     font-size: 14px;
@@ -67,8 +65,7 @@ window#waybar {
     background-color: #35203f;
 }
 
-/* ── Workspaces (ext/workspaces для MangoWM) ─────────────────────── */
-/* ext/workspaces рендерит контейнер с id="workspaces" */
+/* == Workspaces (ext/workspaces для MangoWM) ======================= */
 #workspaces {
     padding: 0 2px;
     border-radius: 0 5px 5px 0;
@@ -91,24 +88,20 @@ window#waybar {
     box-shadow: none;
 }
 
-/* активный тег */
 #workspaces button.active {
     background-color: #35203f;
     color: #98fb98;
 }
 
-/* видимый, но не активный (mango поддерживает несколько тегов) */
 #workspaces button.visible {
     background-color: transparent;
     color: #c8a8b8;
 }
 
-/* занятый тег (есть окна, но не открыт) */
 #workspaces button.occupied {
     color: #6b4c5e;
 }
 
-/* скрытый (ignore-hidden=true скрывает пустые) */
 #workspaces button.hidden {
     color: transparent;
     min-width: 0;
@@ -121,7 +114,7 @@ window#waybar {
     color: #ffcdd5;
 }
 
-/* ── Window title (dwl/window) ──────────────────────────────────── */
+/* == Window title (dwl/window) ==================================== */
 #window {
     color: #c8a8b8;
     font-weight: 400;
@@ -129,7 +122,7 @@ window#waybar {
     min-width: 60px;
 }
 
-/* ── Music ───────────────────────────────────────────────────────── */
+/* == Music ========================================================= */
 #custom-music {
     font-size: 13px;
     font-weight: 400;
@@ -167,7 +160,7 @@ window#waybar {
     100% { border-color: #35203f; }
 }
 
-/* ── Right ──────────────────────────────────────────────────────── */
+/* == Right ======================================================== */
 
 #network             { color: #add8e6; }
 #network.disconnected{ color: #ffb6c1; opacity: 0.5; }
@@ -228,7 +221,7 @@ window#waybar {
     border-radius: 4px;
 }
 
-/* ── Tooltip ─────────────────────────────────────────────────────── */
+/* == Tooltip ======================================================= */
 tooltip {
     background-color: #241530;
     color: #ffb6c1;
@@ -236,14 +229,14 @@ tooltip {
     border-radius: 5px;
 }
 
-/* ── Animations ───────────────────────────────────────────────────── */
+/* == Animations ===================================================== */
 @keyframes blink {
     0%   { opacity: 1;   }
     50%  { opacity: 0.3; }
     100% { opacity: 1;   }
 }
 
-/* ── Keymode indicator ───────────────────────────────────────────── */
+/* == Keymode indicator ============================================= */
 #custom-keymode {
     background-color: #241530;
     padding: 0 10px;
@@ -254,7 +247,6 @@ tooltip {
     transition: all 0.2s ease;
 }
 
-/* скрыт в default режиме */
 #custom-keymode.default {
     min-width: 0;
     padding: 0;
@@ -262,7 +254,6 @@ tooltip {
     background-color: transparent;
 }
 
-/* resize режим — лавандовый акцент */
 #custom-keymode.resize {
     color: #dda0dd;
     background-color: #35203f;
@@ -270,7 +261,6 @@ tooltip {
     animation: keymode-pulse 2s ease-in-out infinite;
 }
 
-/* любой другой кастомный режим */
 #custom-keymode.active {
     color: #98fb98;
     background-color: #35203f;

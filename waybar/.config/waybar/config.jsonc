@@ -23,14 +23,14 @@
         "tray"
     ],
 
-    // ── Power ────────────────────────────────────────────────────────
+    // == Power ========================================================
     "custom/power": {
         "format": "",
         "tooltip": false,
         "on-click": "~/.config/waybar/scripts/powermenu.sh"
     },
 
-    // ── Tags / Workspaces ─────────────────────────────────────────────
+    // == Workspaces =============================================
     "ext/workspaces": {
         "format": "{name}",
         "ignore-hidden": true,
@@ -39,7 +39,7 @@
         "sort-by-id": true
     },
 
-    // ── Keymode indicator ─────────────────────────────────────────────
+    // == Keymode indicator =============================================
     "custom/keymode": {
         "return-type": "json",
         "interval": 1,
@@ -47,7 +47,7 @@
         "tooltip": true
     },
 
-    // ── Window title ──────────────────────────────────────────────────
+    // == Window title ==================================================
     "dwl/window": {
         "format": " {title}",
         "max-length": 40,
@@ -71,7 +71,7 @@
         }
     },
 
-    // ── Music ─────────────────────────────────────────────────────────
+    // == Music =========================================================
     "custom/music": {
         "return-type": "json",
         "interval": 2,
@@ -82,7 +82,7 @@
         "on-scroll-down": "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" next; break;; esac; done'"
     },
 
-    // ── Network ───────────────────────────────────────────────────────
+    // == Network =======================================================
     "network": {
         "interval": 3,
         "format-wifi":         " {signalStrength}%",
@@ -93,7 +93,7 @@
         "tooltip-format-disconnected": "disconnected"
     },
 
-    // ── CPU ───────────────────────────────────────────────────────────
+    // == CPU ===========================================================
     "cpu": {
         "format":         "󰻠 {usage}%",
         "interval":       2,
@@ -101,7 +101,7 @@
         "on-click":       "kitty -e zsh -c 'btop; exec zsh'"
     },
 
-    // ── Temperature ───────────────────────────────────────────────────
+    // == Temperature ===================================================
     "temperature": {
         "critical-threshold": 85,
         "interval":        3,
@@ -110,7 +110,7 @@
         "tooltip":         false
     },
 
-    // ── GPU ───────────────────────────────────────────────────────────
+    // == GPU ===========================================================
     "custom/gpu": {
         "exec":        "~/.config/waybar/scripts/nvidia-stats.sh",
         "return-type": "json",
@@ -120,7 +120,7 @@
         "on-click":    "kitty -e zsh -c 'watch -n1 nvidia-smi; exec zsh'"
     },
 
-    // ── Memory ────────────────────────────────────────────────────────
+    // == Memory ========================================================
     "memory": {
         "format":         "󰍛 {percentage}%",
         "interval":       5,
@@ -128,7 +128,7 @@
         "on-click":       "kitty -e zsh -c 'btop; exec zsh'"
     },
 
-    // ── Audio ─────────────────────────────────────────────────────────
+    // == Audio =========================================================
     "wireplumber": {
         "scroll-step":  5,
         "max-volume":   150,
@@ -145,7 +145,7 @@
         "tooltip-format": "{node_name}"
     },
 
-    // ── Idle inhibitor ────────────────────────────────────────────────
+    // == Idle inhibitor ================================================
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -156,7 +156,7 @@
         "tooltip-format-deactivated": "inhibit: off"
     },
 
-    // ── Clock ─────────────────────────────────────────────────────────
+    // == Clock =========================================================
     "clock": {
         "interval":     30,
         "format":       "󰥔 {:%H·%M}",
@@ -176,7 +176,7 @@
         }
     },
 
-    // ── Tray ──────────────────────────────────────────────────────────
+    // == Tray ==========================================================
     "tray": {
         "icon-size": 15,
         "spacing":   6,
