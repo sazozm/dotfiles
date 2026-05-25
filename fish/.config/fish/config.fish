@@ -102,7 +102,7 @@ if status is-interactive
 
     # Functions
 
-    function niri
+    function mango
         if not test -d /run/user/(id -u)
             sudo mkdir -p /run/user/(id -u)
             sudo chown (id -u):(id -g) /run/user/(id -u)
