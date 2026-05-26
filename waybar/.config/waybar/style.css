@@ -188,11 +188,11 @@ window#waybar {
     background-color: #241530;
 }
 
-#idle_inhibitor            { color: #4a3055; }
-#idle_inhibitor.activated {
-    color: #98fb98;
-    background-color: #35203f;
-}
+/* #idle_inhibitor            { color: #4a3055; }
+   #idle_inhibitor.activated {
+       color: #98fb98;
+       background-color: #35203f;
+   } */
 
 #clock {
     color: #ffb6c1;

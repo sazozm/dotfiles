@@ -18,7 +18,7 @@
         "custom/gpu",
         "memory",
         "wireplumber",
-        "idle_inhibitor",
+        // "idle_inhibitor",
         "clock",
         "tray"
     ],
@@ -146,15 +146,15 @@
     },
 
     // == Idle inhibitor ================================================
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated":   "󰒳",
-            "deactivated": "󰒲"
-        },
-        "tooltip-format-activated":   "inhibit: on",
-        "tooltip-format-deactivated": "inhibit: off"
-    },
+    // "idle_inhibitor": {
+    //     "format": "{icon}",
+    //     "format-icons": {
+    //         "activated":   "󰒳",
+    //         "deactivated": "󰒲"
+    //     },
+    //     "tooltip-format-activated":   "inhibit: on",
+    //     "tooltip-format-deactivated": "inhibit: off"
+    // },
 
     // == Clock =========================================================
     "clock": {
