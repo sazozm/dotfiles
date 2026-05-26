@@ -98,7 +98,7 @@ if status is-interactive
     alias srcfish 'source ~/.config/fish/config.fish && echo "✓ config.fish reloaded"'
     alias foot-conf '$EDITOR ~/.config/foot/foot.ini'
     alias waybar-conf '$EDITOR ~/.config/waybar/config.jsonc'
-    alias mango-conf '$EDITOR ~/.config/mango/config.conf'
+    alias mango-conf '$EDITOR ~/dotfiles/mango/.config/mango/config.conf'
 
     # Functions
 
