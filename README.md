@@ -1,13 +1,13 @@
 # My dotfiles for mangowm
 
 ## Mango
-![Mango](~/dotfiles/showcases/fastfetch.png)
+![Mango](showcases/fastfetch.png)
 
 ## Rofi
-![Rofi](~/dotfiles/showcases/rofi.png)
+![Rofi](showcases/rofi.png)
 
 ## Nvim (Astronvim)
-![Nvim](~/dotfiles/showcases/nvim.png)
+![Nvim](showcases/nvim.png)
 
 ## Fish && Foot
-![Fish](~/dotfiles/showcases/fish.png)
+![Fish](showcases/fish.png)
