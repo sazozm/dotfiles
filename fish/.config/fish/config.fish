@@ -1,11 +1,14 @@
 if status is-interactive
     # Environment & Paths
-    set -gx EDITOR nvim
-    set -gx VISUAL nvim
-    set -gx PAGER less
-    set -gx LESS '-R --use-color -Dd+r$Du+b'
-    set -gx MANPAGER 'sh -c "col -bx | bat -l man -p --theme=base16"'
-    set -gx QT_QPA_PLATFORM xcb
+    set -Ux EDITOR nvim
+    set -Ux VISUAL nvim
+    set -Ux PAGER less
+    set -Ux LESS '-R --use-color -Dd+r$Du+b'
+    set -Ux MANPAGER 'sh -c "col -bx | bat -l man -p --theme=base16"'
+    set -Ux QT_QPA_PLATFORM xcb
+    set -Ux GTK_IM_MODULE None
+    set -Ux QT_IM_MODULE None
+    set -Ux XMODIFIERS @im=none
     fish_add_path $HOME/.local/bin $HOME/bin
 
     # Cargo

@@ -1,5 +1,14 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export EDITOR:nvim
+SETUVAR --export GTK_IM_MODULE:None
+SETUVAR --export LESS:\x2dR\x20\x2d\x2duse\x2dcolor\x20\x2dDd\x2br\x24Du\x2bb
+SETUVAR --export MANPAGER:sh\x20\x2dc\x20\x22col\x20\x2dbx\x20\x7c\x20bat\x20\x2dl\x20man\x20\x2dp\x20\x2d\x2dtheme\x3dbase16\x22
+SETUVAR --export PAGER:less
+SETUVAR --export QT_IM_MODULE:None
+SETUVAR --export QT_QPA_PLATFORM:xcb
+SETUVAR --export VISUAL:nvim
+SETUVAR --export XMODIFIERS:\x40im\x3dnone
 SETUVAR __fish_initialized:4300
 SETUVAR fish_greeting:
 SETUVAR fish_user_paths:/home/void/\x2ecargo/bin
