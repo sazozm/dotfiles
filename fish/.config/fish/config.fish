@@ -78,8 +78,8 @@ if status is-interactive
     alias mv 'mv -i'
 
     # Dev & Git
-    alias nvim nvim
-    alias snvim 'sudo -E nvim'
+    alias nv nvim
+    alias snv 'sudo -E nvim'
     alias g git
     alias ga 'git add'
     alias gaa 'git add --all'
@@ -97,10 +97,10 @@ if status is-interactive
     alias fastmake 'cmake .. && make -j(nproc)'
 
     # Configs
-    alias fishrc '$EDITOR ~/.config/fish/config.fish'
+    alias fishrc '$EDITOR ~/dotfiles/fish/.config/fish/config.fish'
     alias srcfish 'source ~/.config/fish/config.fish && echo "✓ config.fish reloaded"'
-    alias foot-conf '$EDITOR ~/.config/foot/foot.ini'
-    alias waybar-conf '$EDITOR ~/.config/waybar/config.jsonc'
+    alias foot-conf '$EDITOR ~/dotfiles/foot/.config/foot/foot.ini'
+    alias waybar-conf '$EDITOR ~/dotfiles/waybar/.config/waybar/config.jsonc'
     alias mango-conf '$EDITOR ~/dotfiles/mango/.config/mango/config.conf'
 
     # Functions
