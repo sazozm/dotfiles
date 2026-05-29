@@ -13,6 +13,7 @@
     "modules-center": ["custom/music"],
     "modules-right": [
         "network",
+	"battery",
         "cpu",
         "temperature",
         "custom/gpu",
@@ -43,7 +44,7 @@
     "custom/keymode": {
         "return-type": "json",
         "interval": 1,
-        "exec": "/home/void/.config/waybar/scripts/keymode.sh",
+        "exec": "~/.config/waybar/scripts/keymode.sh",
         "tooltip": true
     },
 
@@ -98,7 +99,7 @@
         "format":         "󰻠 {usage}%",
         "interval":       2,
         "tooltip-format": "{usage}%  load {load}",
-        "on-click":       "kitty -e zsh -c 'btop; exec zsh'"
+        "on-click":       "foot -e fish -c 'btop; exec fish'"
     },
 
     // == Temperature ===================================================
@@ -130,8 +131,8 @@
 
     // == Audio =========================================================
     "wireplumber": {
-        "scroll-step":  5,
-        "max-volume":   150,
+        "scroll-step":  1,
+        "max-volume":   110,
         "format":       "{icon} {volume}%",
         "format-muted": "󰝟",
         "format-icons": {
@@ -144,6 +145,22 @@
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
         "tooltip-format": "{node_name}"
     },
+
+    // == Battery =====================================================
+ "battery ": {
+     "interval ": 30,
+     "states ": {
+         "warning ": 20,
+         "critical ": 10
+    },
+     "format ": "{icon}  {capacity}% ",
+     "format-charging ": " {icon} {capacity}% ",
+     "format-full ": "󰁹  100% ",
+     "format-icons ": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+     "tooltip ": true,
+     "tooltip-format ": "State : {state}\n⏱  {time}\n🔋 {capacity}% ",
+     "max-length ": 25
+},
 
     // == Idle inhibitor ================================================
     // "idle_inhibitor": {

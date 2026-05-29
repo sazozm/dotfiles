@@ -40,6 +40,7 @@ window#waybar {
 #custom-gpu,
 #memory,
 #wireplumber,
+#battery,
 #idle_inhibitor,
 #clock,
 #tray {
@@ -187,6 +188,15 @@ window#waybar {
     color: #4a3055;
     background-color: #241530;
 }
+
+#battery {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+    color: #c8a8b8;
+}
+#battery.charging { color: #98fb98; }
+#battery.warning  { color: #fffacd; }
+#battery.critical { color: #ffcdd5; animation: blink 1s linear infinite; }
+#battery.full     { color: #98fb98; }
 
 /* #idle_inhibitor            { color: #4a3055; }
    #idle_inhibitor.activated {
