@@ -102,6 +102,7 @@ if status is-interactive
     alias foot-conf '$EDITOR ~/dotfiles/foot/.config/foot/foot.ini'
     alias waybar-conf '$EDITOR ~/dotfiles/waybar/.config/waybar/config.jsonc'
     alias mango-conf '$EDITOR ~/dotfiles/mango/.config/mango/config.conf'
+    alias niri-conf '$EDITOR ~/dotfiles/niri/.config/niri/config.kdl'
 
     # Functions
 
@@ -113,6 +114,16 @@ if status is-interactive
         end
 
         exec dbus-run-session mango
+    end
+
+    function niri
+        if not test -d /run/user/(id -u)
+            sudo mkdir -p /run/user/(id -u)
+            sudo chown (id -u):(id -g) /run/user/(id -u)
+            chmod 700 /run/user/(id -u)
+        end
+
+        exec dbus-run-session niri
     end
 
     function mkcd

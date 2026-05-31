@@ -32,6 +32,8 @@ window#waybar {
 /* == All ============================================================ */
 #custom-power,
 #workspaces,
+#keyboard-state,
+#language,
 #window,
 #custom-music,
 #network,
@@ -43,6 +45,7 @@ window#waybar {
 #battery,
 #idle_inhibitor,
 #clock,
+#bluetooth,
 #tray {
     background-color: #241530;
     color: #ffb6c1;
@@ -51,22 +54,55 @@ window#waybar {
     margin-left: 4px;
 }
 
-/* == Power ========================================================= */
-#custom-power {
-    color: #4a3055;
-    font-size: 14px;
-    padding: 0 11px;
-    margin-left: 0;
-    margin-right: 0;
-    border-radius: 5px 0 0 5px;
+/* == Keyboard ===================================================== */
+#language {
+    padding: 0 10px;
+    border-bottom: 1px solid #35203f;
+    transition: all 0.3s ease;
 }
 
-#custom-power:hover {
+#language.ru {
     color: #ffcdd5;
-    background-color: #35203f;
+    border-bottom: 1px solid white;
+    text-shadow: 0 0 5px rgba(255, 205, 213, 0.4);
 }
 
-/* == Workspaces (ext/workspaces для MangoWM) ======================= */
+#language.us {
+    color: #ffcdd5;
+    border-bottom: 1px solid #98fb98;
+    text-shadow: 0 0 5px rgba(255, 205, 213, 0.4);
+}y
+
+#keyboard-state {
+    padding: 0 8px;
+    color: #4a3055;
+    border-bottom: 1px solid #35203f;
+    transition: all 0.3s ease;
+}
+
+#keyboard-state > label {
+}
+#keyboard-state > label.locked {
+    color: #dda0dd;
+    animation: capslock-gradient 3s ease-in-out infinite;
+}
+
+@keyframes capslock-gradient {
+    0%   { 
+        border-bottom-color: #35203f; 
+        text-shadow: none;
+    }
+    50%  { 
+        border-bottom-color: #edc8f0;
+        text-shadow: 0 0 5px rgba(237, 200, 240, 0.5);
+    }
+    100% { 
+        border-bottom-color: #35203f; 
+        text-shadow: none;
+    }
+}
+
+/* == Workspaces ==================================================== */
 #workspaces {
     padding: 0 2px;
     border-radius: 0 5px 5px 0;
@@ -115,7 +151,35 @@ window#waybar {
     color: #ffcdd5;
 }
 
-/* == Window title (dwl/window) ==================================== */
+/* == Keyboard ================================================= */
+#keyboard-state {
+    padding: 0 8px;
+    color: #4a3055;
+    border-bottom: 1px solid #35203f;
+    transition: all 0.3s ease;
+}
+
+#keyboard-state.locked {
+    color: #dda0dd;
+    animation: capslock-gradient 3s ease-in-out infinite;
+}
+
+@keyframes capslock-gradient {
+    0%   { 
+        border-bottom-color: #35203f; 
+        text-shadow: none;
+    }
+    50%  { 
+        border-bottom-color: #edc8f0;
+        text-shadow: 0 0 5px rgba(237, 200, 240, 0.5);
+    }
+    100% { 
+        border-bottom-color: #35203f; 
+        text-shadow: none;
+    }
+}
+
+/* == Window title ================================================= */
 #window {
     color: #c8a8b8;
     font-weight: 400;

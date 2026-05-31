@@ -5,15 +5,16 @@
     "height": 32,
 
     "modules-left": [
-        "custom/power",
-        "ext/workspaces",
-        "custom/keymode",
-        "dwl/window"
+        "niri/workspaces",
+        // "custom/keymode",
+        "keyboard-state",
+        "niri/language",
+        "niri/window"
     ],
     "modules-center": ["custom/music"],
     "modules-right": [
         "network",
-	"battery",
+	    "battery",
         "cpu",
         "temperature",
         "custom/gpu",
@@ -24,16 +25,38 @@
         "tray"
     ],
 
-    // == Power ========================================================
-    "custom/power": {
-        "format": "",
-        "tooltip": false,
-        "on-click": "~/.config/waybar/scripts/powermenu.sh"
+    // == Language =============================================
+    "niri/language" : {
+        "format" : "{short} ",
+        "tooltip" : false
+    },
+
+    // == Keyboard State =============================================
+    "keyboard-state": {
+        "capslock" : true,
+        "format" : "{name}{icon}",
+        "format-icons" : {
+            "locked" : "",
+            "unlocked" : ""
+        },
+        "tooltip" : false
     },
 
     // == Workspaces =============================================
-    "ext/workspaces": {
-        "format": "{name}",
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons" : {
+            "1" : "1",
+            "2" : "2",
+            "3" : "3",
+            "4" : "4",
+            "5" : "5",
+            "6" : "6",
+            "7" : "7",
+            "8" : "8",
+            "9" : "9",
+
+        },
         "ignore-hidden": true,
         "on-click": "activate",
         "on-click-right": "deactivate",
@@ -41,34 +64,37 @@
     },
 
     // == Keymode indicator =============================================
-    "custom/keymode": {
-        "return-type": "json",
-        "interval": 1,
-        "exec": "~/.config/waybar/scripts/keymode.sh",
-        "tooltip": true
-    },
+    // FOR MANGOWM
+    // "custom/keymode": {
+    //     "return-type": "json",
+    //     "interval": 1,
+    //     "exec": "~/.config/waybar/scripts/keymode.sh",
+    //     "tooltip": true
+    // },
 
     // == Window title ==================================================
-    "dwl/window": {
-        "format": " {title}",
+    "niri/window": {
+        "format": "{title}",
         "max-length": 40,
         "separate-outputs": true,
         "rewrite": {
-            "(.*)Mozilla Firefox(.*)": " Firefox",
-            "(.*)Chromium(.*)":        " Chromium",
-            "(.*)nvim(.*)":            " Neovim",
-            "(.*)helix(.*)":           " Helix",
-            "(.*)alacritty(.*)":       " Alacritty",
-            "(.*)kitty(.*)":           " Kitty",
-            "(.*)foot(.*)":            " foot",
-            "(.*)Telegram(.*)":        " Telegram",
-            "(.*)Discord(.*)":         "󰙯 Discord",
-            "(.*)Spotify(.*)":         " Spotify",
-            "(.*)mpv(.*)":             " mpv",
-            "(.*)Steam(.*)":           " Steam",
-            "(.*)- GIMP$":             " GIMP",
-            "(.*)Thunar(.*)":          "󰉋 Thunar",
-            "^$":                      " Desktop"
+            "(.*)Mozilla Firefox(.*)": "Firefox",
+            "(.*)Chromium(.*)":        "Chromium",
+            "(.*)nvim(.*)":            "Neovim",
+            "(.*)helix(.*)":           "Helix",
+            "(.*)alacritty(.*)":       "Alacritty",
+            "(.*)kitty(.*)":           "Kitty",
+            "(.*)foot(.*)":            "Foot",
+            "(.*)Telegram(.*)":        "Telegram",
+            "(.*)Discord(.*)":         "Discord",
+            "(.*)Vesktop(.*)":         "Vesktop",
+            "(.*)Spotify(.*)":         "Spotify",
+            "(.*)mpv(.*)":             "mpv",
+            "(.*)Steam(.*)":           "Steam",
+            "(.*)- GIMP$":             "GIMP",
+            "(.*)Thunar(.*)":          "Thunar",
+            "(.*)fish(.*)":            "Fish-Shell",
+            "^$":                      "Desktop"
         }
     },
 
@@ -86,8 +112,8 @@
     // == Network =======================================================
     "network": {
         "interval": 3,
-        "format-wifi":         " {signalStrength}%",
-        "format-ethernet":     "󰈀 {ipaddr}",
+        "format-wifi":         "{signalStrength}%",
+        "format-ethernet":     "󰈀{ipaddr}",
         "format-disconnected": "󰤭 off",
         "tooltip-format-wifi":     "{essid}  {signalStrength}%\n󰇚 {bandwidthDownBytes}   󰕒 {bandwidthUpBytes}",
         "tooltip-format-ethernet": "{ifname}  {ipaddr}\n󰇚 {bandwidthDownBytes}   󰕒 {bandwidthUpBytes}",
@@ -113,12 +139,12 @@
 
     // == GPU ===========================================================
     "custom/gpu": {
-        "exec":        "~/.config/waybar/scripts/nvidia-stats.sh",
+        "exec":        "~/.config/waybar/scripts/gpu-stats.sh",
         "return-type": "json",
         "interval":    3,
         "format":      "󰾲 {text}",
         "tooltip":     true,
-        "on-click":    "kitty -e zsh -c 'watch -n1 nvidia-smi; exec zsh'"
+        "on-click":    "foot -e fish -c 'watch -n1 nvidia-smi || radeontop; exec fish'"
     },
 
     // == Memory ========================================================
@@ -126,7 +152,7 @@
         "format":         "󰍛 {percentage}%",
         "interval":       5,
         "tooltip-format": "{used:0.1f}G / {total:0.1f}G\nswap {swapUsed:0.1f}G / {swapTotal:0.1f}G",
-        "on-click":       "kitty -e zsh -c 'btop; exec zsh'"
+        "on-click":       "foot -e fish -c 'btop; exec fish'"
     },
 
     // == Audio =========================================================
@@ -147,20 +173,21 @@
     },
 
     // == Battery =====================================================
- "battery ": {
-     "interval ": 30,
-     "states ": {
-         "warning ": 20,
-         "critical ": 10
+    "battery ": {
+        "interval": 30,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon}{capacity}% ",
+        "format-full": "{capacity}% {icon} ",
+        "format-charging": "󱐋{capacity}% ",
+        "format-icons": ["󰁺", "", "󰁼", "", "󰁾", "", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip": true,
+        "tooltip-format": "State: {state}\n⏱ {time}\n🔋 {capacity}% ",
+        "max-length": 25
     },
-     "format ": "{icon}  {capacity}% ",
-     "format-charging ": " {icon} {capacity}% ",
-     "format-full ": "󰁹  100% ",
-     "format-icons ": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-     "tooltip ": true,
-     "tooltip-format ": "State : {state}\n⏱  {time}\n🔋 {capacity}% ",
-     "max-length ": 25
-},
+
 
     // == Idle inhibitor ================================================
     // "idle_inhibitor": {
@@ -198,5 +225,5 @@
         "icon-size": 15,
         "spacing":   6,
         "show-passive-items": true
-    }
+    },
 }
