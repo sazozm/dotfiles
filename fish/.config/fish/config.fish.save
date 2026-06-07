@@ -1,14 +1,14 @@
-if status is-interactive
+jjjjjjjjqzif status is-interactive
     # Environment & Paths
-    set -gx EDITOR nvim
-    set -gx VISUAL nvim
-    set -gx PAGER less
-    set -gx LESS '-R --use-color -Dd+r$Du+b'
-    set -gx MANPAGER 'sh -c "col -bx | bat -l man -p --theme=base16"'
-    set -gx QT_QPA_PLATFORM xcb
-    set -gx GTK_IM_MODULE None
-    set -gx QT_IM_MODULE None
-    set -gx XMODIFIERS @im=none
+    set -Ux EDITOR nvim
+    set -Ux VISUAL nvim
+    set -Ux PAGER less
+    set -Ux LESS '-R --use-color -Dd+r$Du+b'
+    set -Ux MANPAGER 'sh -c "col -bx | bat -l man -p --theme=base16"'
+    set -Ux QT_QPA_PLATFORM xcb
+    set -Ux GTK_IM_MODULE None
+    set -Ux QT_IM_MODULE None
+    set -Ux XMODIFIERS @im=none
     fish_add_path $HOME/.local/bin $HOME/bin
 
     # Cargo
@@ -101,11 +101,8 @@ if status is-interactive
     alias srcfish 'source ~/.config/fish/config.fish && echo "✓ config.fish reloaded"'
     alias foot-conf '$EDITOR ~/dotfiles/foot/.config/foot/foot.ini'
     alias waybar-conf '$EDITOR ~/dotfiles/waybar/.config/waybar/config.jsonc'
-    alias waybar-style '$EDITOR ~/dotfiles/waybar/.config/waybar/style.css'
     alias mango-conf '$EDITOR ~/dotfiles/mango/.config/mango/config.conf'
     alias niri-conf '$EDITOR ~/dotfiles/niri/.config/niri/config.kdl'
-    alias nix-conf 'sudo $EDITOR /etc/nixos/configuration.nix'
-    alias nix-reb 'sudo nixos-rebuild switch'
 
     # Functions
 
