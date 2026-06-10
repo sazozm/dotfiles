@@ -4,9 +4,15 @@
     "spacing": 0,
     "height": 32,
 
+    "margin-top": 2,
+    "margin-left": 8,
+    "margin-right": 8,
+    "exclusive-zone": 44,
+
     "modules-left": [
         "niri/workspaces",
-        // "custom/keymode",
+        "clock",
+        "custom/keymode",
         "keyboard-state",
         "niri/language",
         "niri/window"
@@ -14,14 +20,16 @@
     "modules-center": ["custom/music"],
     "modules-right": [
         "network",
-	    "battery",
+	      "battery",
         "cpu",
         "temperature",
         "custom/gpu",
         "memory",
         "wireplumber",
+        "disk",
         // "idle_inhibitor",
-        "clock",
+        "bluetooth",
+        "backlight",
         "tray"
     ],
 
@@ -54,8 +62,7 @@
             "6" : "6",
             "7" : "7",
             "8" : "8",
-            "9" : "9",
-
+            "9" : "9"
         },
         "ignore-hidden": true,
         "on-click": "activate",
@@ -65,12 +72,12 @@
 
     // == Keymode indicator =============================================
     // FOR MANGOWM
-    // "custom/keymode": {
-    //     "return-type": "json",
-    //     "interval": 1,
-    //     "exec": "~/.config/waybar/scripts/keymode.sh",
-    //     "tooltip": true
-    // },
+    "custom/keymode": {
+        "return-type": "json",
+        "interval": 1,
+        "exec": "~/dotfiles/waybar/.config/waybar/scripts/keymode.sh",
+        "tooltip": true
+    },
 
     // == Window title ==================================================
     "niri/window": {
@@ -130,6 +137,7 @@
 
     // == Temperature ===================================================
     "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
         "critical-threshold": 85,
         "interval":        3,
         "format":          "󰔏 {temperatureC}°",
@@ -173,19 +181,13 @@
     },
 
     // == Battery =====================================================
-    "battery ": {
+    "battery": {
+        "bat" : "BAT0",
         "interval": 30,
-        "states": {
-            "warning": 20,
-            "critical": 10
-        },
-        "format": "{icon}{capacity}% ",
-        "format-full": "{capacity}% {icon} ",
-        "format-charging": "󱐋{capacity}% ",
-        "format-icons": ["󰁺", "", "󰁼", "", "󰁾", "", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "tooltip": true,
-        "tooltip-format": "State: {state}\n⏱ {time}\n🔋 {capacity}% ",
-        "max-length": 25
+        "format": "{icon} {capacity}% ",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": "󱐋 {capacity}% ",
+        "format-icons": ["󰁺", "󰁼", "󰁾", "󰁾", "󰂀", "󰂀", "󰂁", "󰂂", "󰁹"],
     },
 
 
@@ -218,6 +220,32 @@
                 "today":    "<span color='#98fb98'><b><u>{}</u></b></span>"
             }
         }
+    },
+
+    // == Bluetooth =====================================================
+    "bluetooth": {
+      "format": "󰂯 {status}",
+      "format-connected": "󰂱 {device_alias}",
+      "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+      "tooltip-format": "{controller_alias}\n{num_connections} connected",
+      "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n{device_enumerate}",
+      "on-click": "blueman-manager"
+    }, 
+
+    // == Disk ==========================================================
+    "disk": {
+      "interval": 30,
+      "format": "󰋊 {percentage_used}%",
+      "path": "/",
+      "tooltip-format": "{used} / {total}"
+    },
+
+    // == Backlight =====================================================
+    "backlight": {
+      "format": "{icon} {percent}%",
+      "format-icons": ["󰃞", "󰃟", "󰃠"],
+      "on-scroll-up": "brightnessctl set 5%+",
+      "on-scroll-down": "brightnessctl set 5%-"
     },
 
     // == Tray ==========================================================

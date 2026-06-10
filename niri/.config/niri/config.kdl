@@ -128,6 +128,7 @@ spawn-at-startup "awww-daemon"
 spawn-at-startup "awww img ~/Pictures/Wallpapers/purpleWallpaper.png"
 spawn-sh-at-startup "scripts/audio.sh"
 spawn-at-startup "dunst"
+spawn-at-startup "blueman-applet"
 spawn-at-startup "xwayland-satellite"
 
 hotkey-overlay {

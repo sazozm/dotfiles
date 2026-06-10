@@ -22,6 +22,9 @@
 window#waybar {
     background-color: #1a0a1f;
     color: #ffb6c1;
+    border-radius: 10px;
+    border: 1px solid #35203f;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 }
 
 /* == Sections ======================================================== */
@@ -44,8 +47,10 @@ window#waybar {
 #wireplumber,
 #battery,
 #idle_inhibitor,
+#disk,
 #clock,
 #bluetooth,
+#backlight,
 #tray {
     background-color: #241530;
     color: #ffb6c1;
