@@ -1,0 +1,216 @@
+{
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    "height": 32,
+
+    "margin-top": 2,
+    "margin-left": 8,
+    "margin-right": 8,
+    "exclusive-zone": 44,
+
+    "modules-left": [
+        "ext/workspaces",
+        "clock",
+        // "custom/keymode",
+        // "keyboard-state",
+        "dwl/window"
+    ],
+    "modules-center": ["custom/music"],
+    "modules-right": [
+        "network",
+        "battery",
+        "cpu",
+        "temperature",
+        "custom/gpu",
+        "memory",
+        "wireplumber",
+        "disk",
+        "bluetooth",
+        "backlight",
+        "tray"
+    ],
+
+    // == Workspaces (ext) =======================================
+    "ext/workspaces": {
+        "format": "{icon}",
+        "format-icons" : {
+            "1" : "1",
+            "2" : "2",
+            "3" : "3",
+            "4" : "4",
+            "5" : "5",
+            "6" : "6",
+            "7" : "7",
+            "8" : "8",
+            "9" : "9"
+        },
+        "on-click": "activate",
+        "sort-by-id": true
+    },
+
+    // == Keyboard State =========================================
+    "keyboard-state": {
+        "capslock" : true,
+        "format" : "{name}{icon}",
+        "format-icons" : {
+            "locked" : "",
+            "unlocked" : ""
+        },
+        "tooltip" : false
+    },
+
+    // == Keymode indicator (MangoWM) ============================
+    "custom/keymode": {
+        "return-type": "json",
+        "interval": 1,
+        "exec": "~/dotfiles/waybar/.config/waybar/scripts/keymode.sh",
+        "tooltip": true
+    },
+
+    // == Window title (Custom/Placeholder for MangoWM) ==========
+    "dwl/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "exec": "echo 'Desktop'",
+        "interval": 1
+    },
+
+    // == Music ==================================================
+    "custom/music": {
+        "return-type": "json",
+        "interval": 2,
+        "exec": "bash -c 'P=\"\"; for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*|Chromium.*) S=$(playerctl -p \"$p\" status 2>/dev/null); [ \"$S\" = \"Playing\" ] || [ \"$S\" = \"Paused\" ] && P=\"$p\" && break;; esac; done; [ -z \"$P\" ] && for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*|Chromium.*) P=\"$p\"; break;; esac; done; [ -z \"$P\" ] && echo \"{\\\"text\\\":\\\"\\\",\\\"class\\\":\\\"off\\\"}\" && exit; S=$(playerctl -p \"$P\" status 2>/dev/null); TI=$(playerctl -p \"$P\" metadata title 2>/dev/null | head -c 40); AR=$(playerctl -p \"$P\" metadata artist 2>/dev/null | head -c 25); [ -z \"$TI\" ] && echo \"{\\\"text\\\":\\\"\\\",\\\"class\\\":\\\"off\\\"}\" && exit; case \"$S\" in Playing) IC=\"󰐊\" CL=\"playing\";; Paused) IC=\"󰏤\" CL=\"paused\";; *) echo \"{\\\"text\\\":\\\"\\\",\\\"class\\\":\\\"off\\\"}\" && exit;; esac; [ -n \"$AR\" ] && TX=\"$IC $TI · $AR\" || TX=\"$IC $TI\"; printf \"{\\\"text\\\":\\\"%s\\\",\\\"class\\\":\\\"%s\\\",\\\"tooltip\\\":\\\"%s\\\"}\\n\" \"$TX\" \"$CL\" \"$TI\"'",
+        "on-click":       "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" play-pause; break;; esac; done'",
+        "on-click-right": "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" next; break;; esac; done'",
+        "on-scroll-up":   "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" previous; break;; esac; done'",
+        "on-scroll-down": "bash -c 'for p in $(playerctl -l 2>/dev/null); do case \"$p\" in chromium.*) playerctl -p \"$p\" next; break;; esac; done'"
+    },
+
+    // == Network ================================================
+    "network": {
+        "interval": 3,
+        "format-wifi":         "{signalStrength}%",
+        "format-ethernet":     "󰈀{ipaddr}",
+        "format-disconnected": "󰤭 off",
+        "tooltip-format-wifi":     "{essid}  {signalStrength}%\n󰇚 {bandwidthDownBytes}   󰕒 {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "{ifname}  {ipaddr}\n󰇚 {bandwidthDownBytes}   󰕒 {bandwidthUpBytes}",
+        "tooltip-format-disconnected": "disconnected"
+    },
+
+    // == CPU ====================================================
+    "cpu": {
+        "format":         "󰻠 {usage}%",
+        "interval":       2,
+        "tooltip-format": "{usage}%  load {load}",
+        "on-click":       "foot -e fish -c 'btop; exec fish'"
+    },
+
+    // == Temperature ============================================
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+        "critical-threshold": 85,
+        "interval":        3,
+        "format":          "󰔏 {temperatureC}°",
+        "format-critical": "󰸁 {temperatureC}°",
+        "tooltip":         false
+    },
+
+    // == GPU ====================================================
+    "custom/gpu": {
+        "exec":        "~/.config/waybar/scripts/gpu-stats.sh",
+        "return-type": "json",
+        "interval":    3,
+        "format":      "󰾲 {text}",
+        "tooltip":     true,
+        "on-click":    "foot -e fish -c 'watch -n1 nvidia-smi || radeontop; exec fish'"
+    },
+
+    // == Memory =================================================
+    "memory": {
+        "format":         "󰍛 {percentage}%",
+        "interval":       5,
+        "tooltip-format": "{used:0.1f}G / {total:0.1f}G\nswap {swapUsed:0.1f}G / {swapTotal:0.1f}G",
+        "on-click":       "foot -e fish -c 'btop; exec fish'"
+    },
+
+    // == Audio ==================================================
+    "wireplumber": {
+        "scroll-step":  1,
+        "max-volume":   110,
+        "format":       "{icon} {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "default":   ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click":       "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "pavucontrol",
+        "on-scroll-up":   "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "tooltip-format": "{node_name}"
+    },
+
+    // == Battery ================================================
+    "battery": {
+        "bat" : "BAT0",
+        "interval": 30,
+        "format": "{icon} {capacity}% ",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": "󱐋 {capacity}% ",
+        "format-icons": ["󰁺", "󰁼", "󰁾", "󰁾", "󰂀", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    // == Clock ==================================================
+    "clock": {
+        "interval":     30,
+        "format":       "󰥔 {:%H·%M}",
+        "format-alt":   "󰃭 {:%d·%m·%Y}",
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode":      "month",
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#ffb6c1'><b>{}</b></span>",
+                "days":     "<span color='#c8a8b8'>{}</span>",
+                "weeks":    "<span color='#6b4c5e'><b>W{}</b></span>",
+                "weekdays": "<span color='#dda0dd'><b>{}</b></span>",
+                "today":    "<span color='#98fb98'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    // == Bluetooth ==============================================
+    "bluetooth": {
+      "format": "󰂯 {status}",
+      "format-connected": "󰂱 {device_alias}",
+      "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+      "tooltip-format": "{controller_alias}\n{num_connections} connected",
+      "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n{device_enumerate}",
+      "on-click": "blueman-manager"
+    }, 
+
+    // == Disk ===================================================
+    "disk": {
+      "interval": 30,
+      "format": "󰋊 {percentage_used}%",
+      "path": "/",
+      "tooltip-format": "{used} / {total}"
+    },
+
+    // == Backlight ==============================================
+    "backlight": {
+      "format": "{icon} {percent}%",
+      "format-icons": ["󰃞", "󰃟", "󰃠"],
+      "on-scroll-up": "brightnessctl set 5%+",
+      "on-scroll-down": "brightnessctl set 5%-"
+    },
+
+    // == Tray ===================================================
+    "tray": {
+        "icon-size": 15,
+        "spacing":   6,
+        "show-passive-items": true
+    }
+}

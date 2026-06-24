@@ -138,6 +138,8 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 animations {
+  window-open { duration-ms 150; curve "ease-out-expo"; }
+  window-close { duration-ms 150; curve "ease-out-expo"; }
 }
 
 layer-rule {
